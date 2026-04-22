@@ -1,0 +1,126 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, monospace;
+
+  --color-bg: #07070a;
+  --color-bg-elev: #0d0d12;
+  --color-surface: #13131a;
+  --color-border: #1f1f2a;
+  --color-border-strong: #2a2a38;
+  --color-text: #e8e8ef;
+  --color-muted: #8a8a99;
+  --color-subtle: #5c5c6e;
+
+  --color-accent: #a78bfa;
+  --color-accent-2: #22d3ee;
+  --color-accent-3: #f472b6;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-accent) 35%, transparent);
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+@utility container-x {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  max-width: 72rem;
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@utility text-pretty {
+  text-wrap: pretty;
+}
+
+@utility gradient-text {
+  background: linear-gradient(
+    120deg,
+    var(--color-accent) 0%,
+    var(--color-accent-2) 55%,
+    var(--color-accent-3) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility glass {
+  background: color-mix(in oklab, var(--color-surface) 70%, transparent);
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  border: 1px solid var(--color-border);
+}
+
+/* Background decoration */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse at 50% 0%, black 40%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 0%, black 40%, transparent 75%);
+}
+
+.bg-aurora {
+  position: absolute;
+  inset: -20% -10% auto -10%;
+  height: 80vh;
+  z-index: -1;
+  filter: blur(80px);
+  opacity: 0.55;
+  pointer-events: none;
+  background:
+    radial-gradient(closest-side at 20% 30%, #7c3aed 0%, transparent 70%),
+    radial-gradient(closest-side at 75% 20%, #06b6d4 0%, transparent 70%),
+    radial-gradient(closest-side at 50% 70%, #ec4899 0%, transparent 70%);
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* Hide scrollbar on mobile nav pill */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
